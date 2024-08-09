@@ -1,4 +1,4 @@
-# Loomi eccomerce-api
+# Loomi ecomerce-api
 
 Esta API faz parte do desafio da Loomi para construir uma API REST de e-commerce.
 
