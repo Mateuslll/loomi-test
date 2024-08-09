@@ -45,6 +45,9 @@ Esta API faz parte do desafio da Loomi para construir uma API REST de e-commerce
 
 - **Gerenciamento de Configurações**: Utiliza um sistema centralizado de gerenciamento de configurações para ajustar parâmetros de aplicação e ambiente. Permite a configuração de variáveis de ambiente e outras propriedades necessárias para a operação da aplicação.
 
+## Configuração .env
+
+Disponível no link: https://drive.google.com/drive/folders/1YbXTqPC9A9PIfqUCG-cmknGIw412Mvhn?usp=sharing
 
 ## Como Executar o BACK-END
 
