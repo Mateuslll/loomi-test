@@ -7,7 +7,7 @@ export class CreateOrderDTO {
     title: 'clientId',
     type: String,
     required: true,
-    description: 'Id of the customer issuing a new order.',
+    description: 'Id of the client issuing a new order.',
   })
   @IsUUID()
   @IsNotEmpty()

@@ -6,7 +6,7 @@ export class GetClientDTO {
     title: 'id',
     type: String,
     required: true,
-    description: 'Id of customer the to be retrieved.',
+    description: 'Id of clients the to be retrieved.',
   })
   @IsNotEmpty()
   @IsUUID()

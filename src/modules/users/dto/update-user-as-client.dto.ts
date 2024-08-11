@@ -1,5 +1,5 @@
-import { IsEmail, IsOptional, IsString } from 'class-validator';
-import { ApiPropertyOptional } from '@nestjs/swagger';
+import { IsEmail, IsNotEmpty, IsOptional, IsString } from 'class-validator';
+import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
 
 export class UpdateUserAsClientDTO {
   @ApiPropertyOptional({
@@ -31,4 +31,14 @@ export class UpdateUserAsClientDTO {
   @IsOptional()
   @IsString()
   name?: string;
+
+  @ApiProperty({
+    title: 'userId',
+    type: String,
+    required: true,
+    description: 'ID of the associated user.',
+  })
+  @IsNotEmpty()
+  @IsString()
+  userId: string;
 }

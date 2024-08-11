@@ -63,13 +63,13 @@ export class ClientsService {
 
   async deleteClient(data: DeleteClientDTO) {
     try {
-      const customerId = (
+      const clientId = (
         (await this.clientsRepository.findClientByUserId(
           data,
         )) as unknown as Client
       ).id;
       const client = await this.clientsRepository.deleteClient({
-        id: customerId,
+        id: clientId,
       });
       await this.userService.deleteUser({ id: data.userId });
       return client;
