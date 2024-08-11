@@ -4,7 +4,6 @@ import {
   Controller,
   Delete,
   Patch,
-  Request,
   Post,
   Query,
   ValidationPipe,
@@ -123,14 +122,11 @@ export class UsersController {
     summary: `Endpoint to update client user's properties given the new value of the property to be updated, returning the user's data updated.`,
   })
   @Patch()
-  async updateUser(
-    @Body() updateUserAsClientDTO: UpdateUserAsClientDTO,
-    @Request() req,
-  ) {
+  async updateUser(@Body() updateUserAsClientDTO: UpdateUserAsClientDTO) {
     try {
       return await this.usersService.updateUser({
         ...updateUserAsClientDTO,
-        id: req.user.id,
+        id: updateUserAsClientDTO.userId,
       });
     } catch (error) {
       return new BadRequestException(error);
@@ -153,9 +149,9 @@ export class UsersController {
     summary: `Endpoint to remove a user's data from the database.`,
   })
   @Delete()
-  async deleteUser(@Request() req) {
+  async deleteUser(data: DeleteUserDTO) {
     try {
-      return await this.usersService.deleteUser({ id: req.user.id });
+      return await this.usersService.deleteUser(data);
     } catch (error) {
       return new BadRequestException(error);
     }

@@ -83,7 +83,7 @@ export class SearchOrderDTO {
     title: 'clientId',
     type: String,
     required: false,
-    description: 'Id of the customer that issued an order.',
+    description: 'Id of the client that issued an order.',
   })
   @IsUUID()
   @IsOptional()

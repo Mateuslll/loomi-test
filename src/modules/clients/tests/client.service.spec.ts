@@ -16,7 +16,7 @@ import { UpdateClientDTO } from '../dto/update-client-as-user.dto';
 describe('service', () => {
   let service: ClientsService;
   let userService: UsersService;
-  let customersRepository: ClientsRepository;
+  let clientsRepository: ClientsRepository;
 
   const mockClientsRepository = () => ({});
   const mockUserRepository = () => ({});
@@ -45,7 +45,7 @@ describe('service', () => {
 
     service = module.get<ClientsService>(ClientsService);
     userService = module.get<UsersService>(UsersService);
-    customersRepository = module.get<ClientsRepository>(ClientsRepository);
+    clientsRepository = module.get<ClientsRepository>(ClientsRepository);
   });
 
   describe('createClient', () => {
@@ -53,12 +53,11 @@ describe('service', () => {
       fullName: faker.person.firstName(),
       contactPhone: faker.string.sample(),
       address: faker.string.sample(),
+      userId: faker.string.sample(),
     };
 
-    it('should create a customer', async () => {
-      customersRepository.createClient = jest
-        .fn()
-        .mockResolvedValue(mockClient);
+    it('should create a client', async () => {
+      clientsRepository.createClient = jest.fn().mockResolvedValue(mockClient);
 
       const result = await service.createClient(
         data,
@@ -69,7 +68,7 @@ describe('service', () => {
 
     it('should handle error and return NotAcceptableException', async () => {
       const mockError = new Error('Error message');
-      customersRepository.createClient = jest.fn().mockRejectedValue(mockError);
+      clientsRepository.createClient = jest.fn().mockRejectedValue(mockError);
 
       const result = await service.createClient(
         data,
@@ -84,10 +83,8 @@ describe('service', () => {
       id: simpleFaker.string.uuid(),
     };
 
-    it('should return a customer', async () => {
-      customersRepository.detailClient = jest
-        .fn()
-        .mockResolvedValue(mockClient);
+    it('should return a client', async () => {
+      clientsRepository.detailClient = jest.fn().mockResolvedValue(mockClient);
 
       const result = await service.detailClient(data);
       expect(result).toEqual(mockClient);
@@ -95,7 +92,7 @@ describe('service', () => {
 
     it('should handle error and return NotFoundException', async () => {
       const mockError = new Error('Error message');
-      customersRepository.detailClient = jest.fn().mockRejectedValue(mockError);
+      clientsRepository.detailClient = jest.fn().mockRejectedValue(mockError);
 
       const result = await service.detailClient(data);
       expect(result).toBeInstanceOf(NotFoundException);
@@ -108,18 +105,18 @@ describe('service', () => {
       records_per_page: faker.number.int(),
     };
 
-    it('should search customers', async () => {
-      customersRepository.listClients = jest
+    it('should search clients', async () => {
+      clientsRepository.listClients = jest
         .fn()
-        .mockResolvedValue({ customers: [mockClient] });
+        .mockResolvedValue({ clients: [mockClient] });
 
       const result = await service.searchClients(data);
-      expect(result).toEqual({ customers: [mockClient] });
+      expect(result).toEqual({ clients: [mockClient] });
     });
 
     it('should handle error and return NotFoundException', async () => {
       const mockError = new Error('Error message');
-      customersRepository.listClients = jest.fn().mockRejectedValue(mockError);
+      clientsRepository.listClients = jest.fn().mockRejectedValue(mockError);
 
       const result = await service.searchClients(data);
       expect(result).toBeInstanceOf(NotFoundException);
@@ -131,10 +128,8 @@ describe('service', () => {
       fullName: faker.person.firstName(),
     };
 
-    it('should update a customer', async () => {
-      customersRepository.updateClient = jest
-        .fn()
-        .mockResolvedValue(mockClient);
+    it('should update a client', async () => {
+      clientsRepository.updateClient = jest.fn().mockResolvedValue(mockClient);
 
       const result = await service.updateClient(
         data,
@@ -145,7 +140,7 @@ describe('service', () => {
 
     it('should handle error and return NotAcceptableException', async () => {
       const mockError = new Error('Error message');
-      customersRepository.updateClient = jest.fn().mockRejectedValue(mockError);
+      clientsRepository.updateClient = jest.fn().mockRejectedValue(mockError);
 
       const result = await service.updateClient(
         data,
@@ -160,13 +155,11 @@ describe('service', () => {
       userId: simpleFaker.string.uuid(),
     };
 
-    it('should delete a customer', async () => {
-      customersRepository.findClientByUserId = jest
+    it('should delete a client', async () => {
+      clientsRepository.findClientByUserId = jest
         .fn()
         .mockResolvedValue(mockClient);
-      customersRepository.deleteClient = jest
-        .fn()
-        .mockResolvedValue(mockClient);
+      clientsRepository.deleteClient = jest.fn().mockResolvedValue(mockClient);
       userService.deleteUser = jest.fn().mockResolvedValue(null);
       const result = await service.deleteClient(data);
       expect(result).toEqual(mockClient);
@@ -174,7 +167,7 @@ describe('service', () => {
 
     it('should handle error and return NotAcceptableException', async () => {
       const mockError = new Error('Error message');
-      customersRepository.deleteClient = jest.fn().mockRejectedValue(mockError);
+      clientsRepository.deleteClient = jest.fn().mockRejectedValue(mockError);
 
       const result = await service.deleteClient(data);
       expect(result).toBeInstanceOf(NotAcceptableException);

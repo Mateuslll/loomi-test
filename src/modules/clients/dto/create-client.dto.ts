@@ -31,4 +31,14 @@ export class CreateClientDTO {
   @IsNotEmpty()
   @IsString()
   address: string;
+
+  @ApiProperty({
+    title: 'userId',
+    type: String,
+    required: true,
+    description: 'ID of the associated user.',
+  })
+  @IsNotEmpty()
+  @IsString()
+  userId: string;
 }

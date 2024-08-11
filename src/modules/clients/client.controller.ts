@@ -8,6 +8,7 @@ import {
   Post,
   Query,
   ValidationPipe,
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   Request,
 } from '@nestjs/common';
 import { ApiOperation, ApiTags } from '@nestjs/swagger';
@@ -28,9 +29,9 @@ export class ClientsController {
     summary: `Endpoint to create a new client, returning it's data.`,
   })
   @Post()
-  async createClient(@Body() data: CreateClientDTO, @Request() req) {
+  async createClient(@Body() data: CreateClientDTO) {
     try {
-      return await this.clientsService.createClient(data, req.user.id);
+      return await this.clientsService.createClient(data, data.userId);
     } catch (error) {
       return new BadRequestException(error);
     }
@@ -82,9 +83,9 @@ export class ClientsController {
     summary: `Endpoint to update one or more client's properties given the new value of the property to be updated, returning the client's data updated.`,
   })
   @Patch()
-  async updateClient(@Body() data: UpdateClientDTO, @Request() req) {
+  async updateClient(@Body() data: UpdateClientDTO) {
     try {
-      return await this.clientsService.updateClient(data, req.user.id);
+      return await this.clientsService.updateClient(data, data.user_id);
     } catch (error) {
       return new BadRequestException(error);
     }
@@ -106,10 +107,10 @@ export class ClientsController {
     summary: `Endpoint to remove the current logged in client's data from the database, also remove it's user's data.`,
   })
   @Delete()
-  async deleteClient(@Request() req) {
+  async deleteClient(data: DeleteClientDTO) {
     try {
       return await this.clientsService.deleteClient({
-        userId: req.user.id,
+        userId: data.userId,
       });
     } catch (error) {
       return new BadRequestException(error);
